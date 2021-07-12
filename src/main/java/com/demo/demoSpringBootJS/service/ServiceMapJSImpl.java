@@ -1,6 +1,7 @@
 package com.demo.demoSpringBootJS.service;
 
 import com.demo.demoSpringBootJS.model.ScriptInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -27,6 +28,9 @@ public class ServiceMapJSImpl implements ServiceMapJS {
             System.out.println(i);
      */
 
+    @Autowired
+    private ServiceMapStatus serviceMapStatus;
+
 
     // Переменная для генерации ID ScriptInfo
     private static final AtomicInteger SCRIPT_INFO_ID_HOLDER = new AtomicInteger();
@@ -46,14 +50,14 @@ public class ServiceMapJSImpl implements ServiceMapJS {
         return new ArrayList<>(SCRIPT_INFO_REPOSITORY_MAP.values());
     }
 
-    public List<Integer> getScheduler() {
 
+    public List<Integer> getScheduler() {
         List<Integer> forSchedulerScriptInfoId = new ArrayList<>();
-        Set<Integer> keys =  SCRIPT_INFO_REPOSITORY_MAP.keySet();
+        Set<Integer> keys = SCRIPT_INFO_REPOSITORY_MAP.keySet();
         ScriptInfo scriptInfo;
-        for (Integer id : keys){
+        for (Integer id : keys) {
             scriptInfo = read(id);
-            if ( 0 == scriptInfo.getStatusId()) forSchedulerScriptInfoId.add(id);
+            if (0 == scriptInfo.getStatusId()) forSchedulerScriptInfoId.add(id);
         }
         return forSchedulerScriptInfoId;
     }
@@ -61,6 +65,16 @@ public class ServiceMapJSImpl implements ServiceMapJS {
     @Override
     public ScriptInfo read(int id) {
         return SCRIPT_INFO_REPOSITORY_MAP.get(id);
+    }
+
+    @Override
+    public String readStatus(int id) {
+
+        if (SCRIPT_INFO_REPOSITORY_MAP.get(id) == null) {
+            return "ID DOES NOT EXIST";
+        }
+        return serviceMapStatus.readStatus(SCRIPT_INFO_REPOSITORY_MAP.get(id).getStatusId());
+
     }
 
     @Override
@@ -89,7 +103,14 @@ public class ServiceMapJSImpl implements ServiceMapJS {
     }
 
     @Override
-    public boolean delete(int id) {
-        return SCRIPT_INFO_REPOSITORY_MAP.remove(id) != null;
+    public boolean delete(int id) { //delete without return item
+        ScriptInfo scriptInfo = read(id);
+        if (scriptInfo.getStatusId() == 1) {
+            System.out.println("the Script  cannot be deleted, now It is running"); // script running
+            return false;
+        } else {
+            SCRIPT_INFO_REPOSITORY_MAP.remove(id);
+            return true; // all successfully
+        }
     }
 }

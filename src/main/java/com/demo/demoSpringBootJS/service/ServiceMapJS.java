@@ -68,4 +68,11 @@ public interface ServiceMapJS {
      */
     List<Integer> getScheduler();
 
+
+    /**
+     * Возвращает  Status script с заданным ID
+     * @return - String Status
+     */
+    String readStatus(int id);
+
 }
