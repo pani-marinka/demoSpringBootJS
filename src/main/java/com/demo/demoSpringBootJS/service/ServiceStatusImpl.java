@@ -1,12 +1,13 @@
 package com.demo.demoSpringBootJS.service;
 
+import com.demo.demoSpringBootJS.enums.ScriptStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class ServiceMapStatusImpl implements ServiceMapStatus {
+public class ServiceStatusImpl implements ServiceStatus {
     // Хранилище Status
     private static final Map<Integer, String> STATUS_INFO_REPOSITORY_MAP = new HashMap<>();
 
@@ -19,10 +20,26 @@ public class ServiceMapStatusImpl implements ServiceMapStatus {
     }
 
     @Override
-    public String readStatus(int id) {
-        if (STATUS_INFO_REPOSITORY_MAP.size() == 0) create();
-        return STATUS_INFO_REPOSITORY_MAP.get(id);
-    }
+    public ScriptStatus readStatus(int id) {
+        switch (id) {
+            case 0:
+                return ScriptStatus.SCHEDULED;
+            case 1:
+                return ScriptStatus.RUNNING;
+
+            case 2:
+                return ScriptStatus.COMPLETE;
+
+            case 3:
+                return ScriptStatus.FAILD;
+
+            default:
+                return ScriptStatus.NOT_FOUND;
+
+        }
+
+
+           }
 
 
 }

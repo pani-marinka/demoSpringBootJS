@@ -37,8 +37,9 @@ DELETE http://localhost:8080/api/order/1
     }
 
 
-    @GetMapping
-    public ResponseEntity runScriptStatus(@RequestBody int id) { //Get script status - finished or still running or other...
+    @GetMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity runScriptStatus(@PathVariable int id) { //Get script status - finished or still running or other...
         if (id <= 0) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -58,6 +59,15 @@ DELETE http://localhost:8080/api/order/1
         }
 
     }
+    /*
+    runScriptStatus - если это GET - то у него нет body - надо PathVariable:
+     @GetMapping("/{id}")
+     @ResponseBody
+     public ResponseEntity runScriptStatus(@PathVariable int id)
+
+2. public ResponseEntity<?> createScript(@RequestBody ScriptInfo scriptInfo)
+     Тебе будет приходить не JSON - а просто текст скрипта. Этот объект тебе самой надо создать.
+     */
 
     /*
     POST http://localhost:8080/api/scripts/run_async

@@ -29,7 +29,7 @@ public class ServiceMapJSImpl implements ServiceMapJS {
      */
 
     @Autowired
-    private ServiceMapStatus serviceMapStatus;
+    private ServiceStatus serviceMapStatus;
 
 
     // Переменная для генерации ID ScriptInfo
@@ -73,7 +73,7 @@ public class ServiceMapJSImpl implements ServiceMapJS {
         if (SCRIPT_INFO_REPOSITORY_MAP.get(id) == null) {
             return "ID DOES NOT EXIST";
         }
-        return serviceMapStatus.readStatus(SCRIPT_INFO_REPOSITORY_MAP.get(id).getStatusId());
+        return String.valueOf(serviceMapStatus.readStatus(id));
 
     }
 

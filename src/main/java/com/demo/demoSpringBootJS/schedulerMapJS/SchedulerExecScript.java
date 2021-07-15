@@ -18,7 +18,7 @@ public class SchedulerExecScript {
         public void execScript() {
             if (myPriorityQueue != null){
                 for(String i: myPriorityQueue){
-               // i
+               // i--- что сюда писать?
                     myPriorityQueue.poll();
                 }
             }
