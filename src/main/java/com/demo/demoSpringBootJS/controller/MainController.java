@@ -21,12 +21,7 @@ DELETE http://localhost:8080/api/order/1
     private ServiceMapJS serviceMapJS;
 
 
-    /*
-    Метод возвращает ResponseEntity<?>. ResponseEntity — специальный класс для возврата ответов.
-    С помощью него мы сможем в дальнейшем вернуть клиенту HTTP статус код.
-    После чего возвращаем статус 201 Created, создав новый объект ResponseEntity
-    и передав в него нужное значение енума HttpStatus.
-     */
+
     @PostMapping
     public ResponseEntity<?> createScript(@RequestBody ScriptInfo scriptInfo) {
         if (scriptInfo == null) {
@@ -60,6 +55,7 @@ DELETE http://localhost:8080/api/order/1
 
     }
     /*
+    Эти комментарии будут удалены:
     runScriptStatus - если это GET - то у него нет body - надо PathVariable:
      @GetMapping("/{id}")
      @ResponseBody
@@ -90,7 +86,14 @@ Response (JSON):
 2. Get script status - finished or still running
 3. Get script result if finished
 4. Remove script run information
+
+
+    Метод возвращает ResponseEntity<?>. ResponseEntity — специальный класс для возврата ответов.
+    С помощью него мы сможем в дальнейшем вернуть клиенту HTTP статус код.
+    После чего возвращаем статус 201 Created, создав новый объект ResponseEntity
+    и передав в него нужное значение енума HttpStatus.
      */
+
 
 
 }

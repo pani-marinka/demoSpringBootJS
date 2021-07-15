@@ -32,7 +32,7 @@ public class ServiceMapJSImpl implements ServiceMapJS {
     private ServiceStatus serviceMapStatus;
 
 
-    // Переменная для генерации ID ScriptInfo
+    // generation ID ScriptInfo
     private static final AtomicInteger SCRIPT_INFO_ID_HOLDER = new AtomicInteger();
 
     @Override
